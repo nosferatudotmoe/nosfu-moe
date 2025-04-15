@@ -1,0 +1,14 @@
+mixin boardtable(ppd=false, activity=false)
+	.table-container.flex-center.mv-10.text-center
+		table(class=`boardtable${activity ? ' w900' : ''}`)
+			tr
+				th #{__('Board')}
+				th #{__('Description')}
+				th #{__('PPH')}
+				if ppd
+					th.nobreak #{__('PPD')}
+				th.nobreak #{__('Users')}
+				th.nobreak #{__('Posts')}
+				if activity
+					th.nobreak #{__('Latest Activity')}
+			block

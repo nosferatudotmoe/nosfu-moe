@@ -1,0 +1,16 @@
+extends ../layout.pug
+include ../mixins/boardheader.pug
+include ../mixins/boardnav.pug
+
+block head
+	title #{__('Banners')}
+
+block content
+	h1.board-title #{__('Banners')}
+	include ../includes/stickynav.pug
+	if banners && banners.length > 0
+		.catalog
+			each banner in banners
+				img.board-banner(src=`/banner/${banner}` loading='lazy')
+	else
+		p #{__('Site has no banners.')}

@@ -1,0 +1,29 @@
+extends ../layout.pug
+include ../mixins/globalmanagenav.pug
+include ../mixins/fileform.pug
+
+block head
+	title #{__('Assets')}
+
+block content
+	h1.board-title #{__('Assets')}
+	br
+	+globalmanagenav('assets')
+	hr(size=1)
+	+fileform('banner', globalLimits.bannerFiles.max, globalLimits.bannerFiles.total,
+		'/forms/addbanners', '/forms/deletebanners',
+		'checkedbanners', banners, banners, '/banner',
+		'asset-banner', false, false,
+		__('Images randomly chosen and displayed at the top of most pages on the board'))
+	hr(size=1)
+	+fileform('boardad', globalLimits.bannerFiles.max, globalLimits.bannerFiles.total,
+		'/forms/addboardads', '/forms/deleteboardads',
+		'checkedboardads', boardads, boardads, '/boardad',
+		'asset-boardad', true, false,
+		__('Images randomly chosen and displayed to advertise boards'))
+	hr(size=1)
+	+fileform('flag', globalLimits.flagFiles.max, globalLimits.flagFiles.total,
+		'/forms/addflags', '/forms/deleteflags',
+		'checkedflags', flags, flags, '/flag',
+		'asset-flag', true, false,
+		__('Flags that can be applied to posts if custom flags are enabled in board settings'))

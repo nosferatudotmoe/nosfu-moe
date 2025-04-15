@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ../mixins/custompage.pug
+
+block head
+	title #{customPage.title}
+
+block content
+	include ../includes/stickynav.pug
+	+custompage(customPage)

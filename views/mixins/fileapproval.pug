@@ -1,0 +1,5 @@
+mixin fileapproval(filename)
+	.file-approval-text File pending approval
+	.file-approval-button-container(filename)
+		input.approve-button(id='file-moderation-input' type='submit' name='approve' value='Approve', data-filename=filename)
+		input.deny-button(id='file-moderation-input' type='submit' name='deny' value='Deny', data-filename=filename)

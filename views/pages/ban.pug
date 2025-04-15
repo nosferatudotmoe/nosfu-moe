@@ -1,0 +1,16 @@
+extends ../layout.pug
+include ../mixins/ban.pug
+
+block head
+	if bans && bans.length > 0
+		title #{__('Banned!')}
+	else
+		title #{__('No bans')}
+
+block content
+	if bans && bans.length > 0
+		h1.board-title #{__('Banned!')}
+		h4.board-description #{__('Bans currently in place against your IP')}:
+		include ../includes/banform.pug
+	else 
+		h2 Averi loves you!
