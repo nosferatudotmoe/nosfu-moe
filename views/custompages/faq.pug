@@ -1,0 +1,266 @@
+extends ../layout.pug
+include ../mixins/post.pug
+
+block head
+	title Frequently Asked Questions
+
+block content
+	h1.board-title FAQ
+	include ../includes/stickynav.pug
+	.table-container.flex-center.mv-5
+		.anchor
+		table
+			tr
+				th Frequently Asked Questions
+			tr
+				td.post-message
+					b General
+					ul.mv-0
+						li: a(href='/rules.html') Rules
+						li: a(href='#lore') What anthro.foo is, and is not
+						li: a(href='#useful-links') Useful site links
+						li: a(href='#contact') How can I contact the administration?
+					b Making posts
+					ul.mv-0
+						li: a(href='#name-formatting') How do names, tripcodes and capcodes work?
+						li: a(href='#file-approval') How does the file approval system work?
+						li: a(href='#post-styling') What kind of styling options are available when making a post?
+						li: a(href='#post-info') What is the file size limit?
+	.table-container.flex-center.mv-5
+		.anchor#lore
+		table
+			tr
+				th: a(href='#lore') What anthro.foo is, and is not
+			tr
+				td
+					p
+						| Anthro.foo is an alt-chan, but entirely it's own thing.
+						| A fun imageboard for posting and dicussing anthros 
+						| as a hobby, not just porn like most other places. A place 
+						| of anthro culture for anthro enthusiasts with no worry of /offtopic/.
+						| Start by visiting our main board /anthro/ and introduce yourself!
+					img.faq-image(src='/file/lore.jpg' alt='Ah, I understand now.')
+	.table-container.flex-center.mv-5
+		.anchor#useful-links
+		table
+			tr
+				th: a(href='#useful-links') Useful links
+			tr
+				td
+					ul.mv-0
+						li: a(href='/bans.html') Bans
+						li: a(href='/banners.html') Banners
+	.table-container.flex-center.mv-5
+		.anchor#name-formatting
+		table
+			tr
+				th: a(href='#name-formatting') Name formatting
+			tr
+				td.post-message
+					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank.
+					b Format
+					p 
+						| Names should be input like: 
+						input(disabled='true' spellcheck='false' type='text' value='Name##Tripcode## Capcode')
+						| . Tripcode and capcode are optional components. Please note the whitespace before capcodes is significant. 
+					p Valid examples: 
+					ol.mv-0
+						li name
+						li #tripcode
+						li ##tripcode
+						li ## capcode
+						li name#tripcode
+						li name##tripcode
+						li name## capcode
+						li name#tripcode## capcode
+						li name##tripcode## capcode
+						li #tripcode## capcode
+						li ##tripcode## capcode
+						li ##
+					p The last example is considered a blank capcode and can be used as a shortcut to display your role. Additionally, if a user has multiple aplicable roles (e.g. a board owner, but the user is also global staff) capcodes will default to their lowest role. To show the higher role, you must be explicit and precede any capcode with the role name e.g. ## Global Staff or ## Global Staff capcode
+					p Each component can be used in combination or independently. In a post number 9 would look like:
+						-
+							const examplePost = {
+								"date" : new Date("2019-08-02T09:48:44.180Z"),
+								"name" : "name",
+								"board" : "example",
+								"tripcode" : "!!X8NXmAS44=",
+								"capcode" : "##Board Owner capcode",
+								"message" : "Hello, world!",
+								"nomarkup" : "Hello, world!",
+								"thread" : 1,
+								"password" : null,
+								"email" : "",
+								"spoiler" : false,
+								"banmessage" : null,
+								"files" : [ ],
+								"reports" : [ ],
+								"globalreports" : [ ],
+								"quotes" : [ ],
+								"backlinks" : [ ],
+								"postId" : 123
+							}	
+						+post(examplePost)
+					p The name appears bold in the top left, followed by the tripcode in regular weight with a !! prefix, then the capcode in a different color, bold and with a ## prefix. The colours may vary between themes but are generally distinct from each other
+
+					b Name
+					p The name is simply what name you want to be shown alongside your post. Other users can post with the same name so there is nothing preventing impersonation. This is not related to your username (for registered users).
+
+					b Tripcode
+					p A tripcode is a password of sorts, which users can provide in the tripcode component of their name. This tripcode is used in conjunction with a server-known secret to generate a unique* tripcode portion of the name. Long, unique tripcodes can be used as a form of identity. It is important that you keep tripcodes secret if you use them for some form of identity. A compromised tripcode can be used for impersonation and cannot be revoked in any way. Single # before tripcodes will use the traditional (what is now sometimes known as "insecure") tripcode algorithm shared by many imageboard softwares and websites. Double # before tripcodes will use a sha256 hash with server-side secret for a more secure, non-portable tripcode.
+
+					b Capcode
+					p A capcode is a component of the name field only available to authenticated users. This includes admins, global staff, board owners and board staff. If there is no text after the ##, the role will be displayed alone. Leaving a space and putting custom text will be prefixed by the role name. This way, the role is always shown to prevent role impersonation.
+	.table-container.flex-center.mv-5
+		.anchor#file-approval
+		table
+			tr
+				th: a(href='#file-approval') File approval
+			tr
+				td
+					b File approval
+					p 
+						| To protect users and honor the SFW only nature of this site. I implemented file approval.
+						| New users will have their files pending approval, and need a moderator to verify that 
+						| rules are not broken. Before a file is approved a 'File Pending Approval' replacement is 
+						| shown, but after approval users will see the original file.
+					b Trust system 
+					p
+						| Users may wish to create an account and become 'Trusted' to bypass file approval. 
+						| To become trusted you need to build a post history and demonstrate to staff you
+						| follow the SFW only nature of this site. Make sure you are logged in while posting,
+						| if you use a VPN you may also want to include 'nohide' option in email to attach 
+						| your account name to posts so that staff may view your post history. When you become 
+						| trusted you are free to stop using 'nohide'. Default posting behavior hides account 
+						| names from staff, 'nohide' is an opt-in feature to help us.
+
+	.table-container.flex-center.mv-5
+		.anchor#post-styling
+		table
+			tr
+				th(colspan=2): a(href='#post-styling') Post styling
+			tr
+				th Input
+				th Output
+			tr
+				td &gt;greentext
+				td
+					span.greentext &gt;greentext
+			tr
+				td &lt;orangetext
+				td
+					span.orangetext &lt;orangetext
+			tr
+				td *italic*
+				td
+					span.em italic
+			tr
+				td **bold**
+				td
+					span.bold bold
+			tr
+				td __underline__
+				td
+					span.underline underline
+			tr
+				td ~~strikethrough~~
+				td
+					span.strike strikethrough
+			tr
+				td `inline monospace`
+				td
+					span.mono inline monospace
+			tr
+				td ||spoiler text||
+				td
+					span.spoiler spoiler text
+			tr
+				td r{red text}
+				td
+					span.title red text
+			tr
+				td b{blue text}
+				td
+					span.bluetext blue text
+			tr
+				td g{glow text}
+				td
+					span.glowtext glow text
+			tr
+				td (((detected)))
+				td
+					span.detected ((( detected text )))
+			tr
+				td ##2%9+3
+				td
+					img(src='/file/dice.png' height='16' width='16')
+					span.dice (##2%9+3) = 10
+			tr
+				td https://example.com
+				td: a(href='#!') https://example.com
+			tr
+				td
+					| [Board Rules](https://your.imageboard/a/custompage/rules.html)
+					div
+						small (requires permission + staff only)
+				td: a(href='#!') Board Rules
+			tr
+				td
+					| ![Alt text](https://your.imageboard/file/example.jpg)
+					div
+						small (requires permission)
+				td: img(src='/file/attachment.png' alt='Alt text' title='alt-text' class='embimg' height='32' width='32')
+			tr
+				td &gt;&gt;123
+				td: a(class="quote" href="#!") &gt;&gt;123
+			tr
+				td &gt;&gt;&gt;/b/
+				td: a(class="quote" href="#!") &gt;&gt;&gt;/b/
+			tr
+				td &gt;&gt;&gt;/b/123
+				td: a(class="quote" href="#!") &gt;&gt;&gt;/b/123
+			
+			tr
+				td
+					| [code]language
+					br
+					| int main() {...}
+					br
+					| [/code]
+				td
+					span.code int main() {...}
+			tr
+				td
+					pre
+						| [code]aa
+						| ∧＿∧
+						| ( ・ω・) Let's try that again.
+						| [&#x2F;code]
+				td
+					pre.aa
+						| ∧＿∧
+						| ( ・ω・) Let's try that again.
+			tr
+				td(colspan=2)
+					| Supported languages for code block syntax highlighting: 
+					a(rel='nofollow' referrerpolicy='same-origin' target='_blank' href='https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md') https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
+					| . 
+					| If you do not specify a language, a subset of languages is supported for auto-detection: #{codeLanguages.join(', ')}. 
+					| If the language is "plain", an unsupported value, or the auto-detect confidence is too low, highlighting is disabled for the code block. 
+					| If the language is "aa", the font will be adjusted for Japanese Shift JIS art.
+	.table-container.flex-center.mv-5
+		.anchor#post-info
+		table
+			tr
+				th: a(href='#post-info') What is the file size limit?
+			tr
+				td
+					p Max size of form data per-post is #{postFilesSize}. Because other fields e.g. name, message, etc contribute to this, the maximum size of file uploads will be very slightly smaller than this.
+	.table-container.flex-center.mv-5
+		.anchor#contact
+		table
+			tr
+				th: a(href='#contact') How can I contact the administration?
+			tr
+				td
+					p anthrofoo@mailfence.com

@@ -1,0 +1,3 @@
+for bit, index in Object.keys(jsonPermissions).filter(p => manageBoardBits.includes(parseInt(p)))
+	include ../includes/permissionsform.pug
+input(type='submit', value=__('Save'))

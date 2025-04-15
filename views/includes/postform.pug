@@ -1,0 +1,85 @@
+include ../mixins/filelabel.pug
+- const isThread = thread != null;
+- const subjectRequired = (!isThread && board.settings.forceThreadSubject);
+- const messageRequired = (!isThread && board.settings.forceThreadMessage) || (isThread && board.settings.forceReplyMessage);
+- const fileRequired = (!isThread && board.settings.forceThreadFile) || (isThread && board.settings.forceReplyFile);
+section.form-wrapper.flex-center
+	form.form-post#postform(action=`/forms/board/${board._id}/${modview ? 'mod' : ''}post`, enctype='multipart/form-data', method='POST' data-reset-on-submit='true')
+		if modview
+			input(type='hidden' name='_csrf' value=csrf)
+		input(type='hidden' name='thread' value=isThread ? thread.postId : null)
+		section.row.jsonly
+			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
+			a.close.postform-style ×
+		if board.settings.forceAnon && !modview
+			section.row
+				.label Sage
+				label.postform-style
+					input(type='checkbox', name='email', value='sage')
+			include ./subjectfield.pug
+		else
+			section.row
+				span.col
+					input(type='text', name='name', placeholder='Name' autocomplete='off' maxlength=globalLimits.fieldLength.name)
+				if board.settings.sageOnlyEmail && !modview
+					span.col
+						.label #{__('Sage')}
+						label.postform-style
+							input(type='checkbox', name='email', value='sage')
+				else
+					span.col
+						input(type='text', name='email', placeholder='Email' autocomplete='off' maxlength=globalLimits.fieldLength.email)
+			include ./subjectfield.pug
+		section.row
+			.label
+				span #{__('Message')}
+					if messageRequired
+						span.required *
+			- const minLength = (isThread ? board.settings.minReplyMessageLength : board.settings.minThreadMessageLength) || 0;
+			- const maxLength = Math.min((isThread ? board.settings.maxReplyMessageLength : board.settings.maxThreadMessageLength), globalLimits.fieldLength.message) || globalLimits.fieldLength.message;
+			textarea#message(placeholder='Please read the rules before posting' name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
+		if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
+			- const maxFiles = board.settings.maxFiles;
+			section.row
+				.label
+					if maxFiles > 1
+						small #{__n('Max %s files', maxFiles)}
+					small #{postFilesSize} #{__('total')}
+				span.col
+					+filelabel('file', maxFiles)
+					input#file(type='file', name='file' multiple required=fileRequired )
+					.upload-list(data-spoilers=(board.settings.userPostSpoiler ? 'true' : 'false') data-strip-filenames='true')
+				if board.settings.userPostSpoiler
+					noscript
+						label.noselect.postform-style.ph-5.ml-1.fh
+							input(type='checkbox', name='spoiler_all', value='true')
+							| Spoiler
+			if board.settings.enableTegaki && board.settings.allowedFileTypes.image === true
+				section.row.jsonly
+					.label #{__('Tegaki')} 
+					input.dummy-link.tegaki-button(type='button', value=__('Draw'))
+					if board.settings.allowedFileTypes.other === true
+						label.noselect.postform-style.ph-5.ml-1.fh
+							input(type='checkbox' name='tegakireplay')
+							| #{__('Replayable?')}
+		if board.settings.userPostSpoiler || board.settings.userPostDelete || board.settings.userPostUnlink || modview
+			section.row
+				.label Password
+				input(type='password', name='postpassword', placeholder='Password to delete/spoiler/unlink later' maxlength='50' autocomplete='new-password')
+			
+		section.row
+			if modview || board.settings.customFlags === true
+				- const flags = board.flags
+				if flags && flags.length > 0
+						select#customflag(name='customflag')
+							option(value='') #{board.settings.geoFlags === true ? __('Geographic Flag') : __('Flag')}
+							each flag in flags
+								option(value=flag.filename data-src=`/flag/${flag.filename}`) #{flag.name}
+						img.jsonly#selected-flag
+				input#submitpost(type='submit', value=(isThread ? __('New Reply') : __('New Thread')))
+		if ((board.settings.captchaMode === 1 && !isThread) || board.settings.captchaMode === 2) && !modview
+			if captchaOptions.type === 'text'
+				include ./captchasidelabel.pug
+			else
+				include ./captchaexpand.pug
+	a.collapse.no-decoration.post-button(href='#postform') [#{isThread ? __('New Reply') : __('New Thread')}]

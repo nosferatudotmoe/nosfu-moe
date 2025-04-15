@@ -1,0 +1,3 @@
+if !isThread || !board.settings.disableReplySubject
+	section.row
+		input(placeholder=`Subject${subjectRequired?'*':''}` type='text', name='subject', autocomplete='off' maxlength=globalLimits.fieldLength.subject required=subjectRequired)

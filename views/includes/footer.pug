@@ -1,0 +1,15 @@
+unless minimal
+	small.footer#bottom
+		| - 
+		a(href='/faq.html') #{__('faq')}
+		|  - 
+		a(href='/rules.html') #{__('rules')}
+		|  - 
+		a(href='/bans.html') #{__('bans')}
+		|  - 
+		div
+			a(href='https://github.com/anthro-foo/anthrochan') anthrochan
+			|  #{version}
+
+//- "render" script - for scripted things that are blocking
+script(src=`/js/render.js?v=${commit}`)
