@@ -124,11 +124,15 @@ pre {
 	display: inline-block;
 	position: relative;
 	text-decoration: none;
-	height: 48px;
-	font-size: 1.5em;
-	line-height: 48px;
+	height: 20px;
+	font-size: 14px;
+	/* line-height: 48px; */
 	width: auto;
 	vertical-align: top;
+}
+
+.nav-item p {
+	font-size: 14px;
 }
 
 @media (max-width: 600px) {
@@ -1138,6 +1142,11 @@ textarea:invalid {
 	letter-spacing: -2px;
 	text-align: center;
 	margin: 0;
+}
+
+.subboard-title {
+	padding-left: 5px;
+	margin-bottom: 0px;
 }
 
 .no-decoration {
