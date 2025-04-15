@@ -1,6 +1,6 @@
-# anthrochan
+# nosfu-moe
 
-Custom fork of jschan imageboard software.
+Custom fork of anthrochan, a fork jschan imageboard software.
 
 Repo Mirror(s):
  - https://github.com/anthro-foo/anthrochan
@@ -9,7 +9,6 @@ Contact the author:
  - Email: anthrofoo@mailfence.com
 
 ## Live instance
- - https://anthro.foo
 
 ## Features
  - [x] Media approval
