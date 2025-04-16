@@ -3,12 +3,12 @@ include ../mixins/boardtable.pug
 
 block head
 	title #{meta.siteName}
-	<link rel="canonical" href="https://anthro.foo/index.html"/>
+	<link rel="canonical" href="https://nosferatu.moe/index.html"/>
 
 block content
 	br
 	.flexcenter
-		img.logo(src="/file/logo.png" alt="A brown fox in a box, with the letter anthro.foo.")
+		img.logo(src="/file/logo.png" alt="For all of your needs.")
 	h1.board-title #{meta.siteName}
 	.table-container.flex-center.mv-10.text-center
 		table
@@ -17,12 +17,12 @@ block content
 			tr
 				td
 					pre.no-m-p
-						| A hangout for anthro enthusiasts with a focus on SFW. 
+						| A website for homosexuals and yaoi enjoyers. 
 						br
 						a(href='/faq.html') README
 						br
 						| Sister sites: 
-						a(href='https://anthrobooru.party') Anthrobooru
+						p #[i Soon...]
 	if hotThreads && hotThreads.length > 0
 		.table-container.flex-center.mv-10
 			table#hotposts
