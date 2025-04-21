@@ -53,6 +53,8 @@ block content
 								|  
 							if board.settings.sfw === true
 								span.help(title=__('SFW')) &#x1F4BC;
+							else
+								span.help(title=__('NSFW')) &#x1F51E;
 								|  
 						a(href=path) #{board.webring ? board.siteName : ''} /#{board.webring ? board.uri : board._id}/ - #{board.settings.name}
 					td #{board.settings.description || '-'}
