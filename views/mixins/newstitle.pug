@@ -3,11 +3,7 @@ mixin newstitle(post, globalmanage=false)
 		.anchor(id=post._id)
 		table
 			tr
-				th
-					if globalmanage === true
-						input.left.post-check(type='checkbox', name='checkednews' value=post._id)  
+				th 
 					a.left(href=`/news.html#${post._id}`) #{post.title}
-					if globalmanage === true
-						a.right.ml-5(href=`/globalmanage/editnews/${post._id}.html`) [#{__('Edit')}]
 					- const newsDate = new Date(post.date);
 					time.right.reltime(datetime=newsDate.toISOString()) #{newsDate.toLocaleString(pageLanguage, {hourCycle:'h23'})}
